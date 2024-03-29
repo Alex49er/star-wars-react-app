@@ -1,21 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
-import Item from './MyItem';
+// import Item from './MyItem';
+
+import React from 'react';
+
+class StarWars extends React.Component{
+  render(){
+    return(
+      <h1>This is Star Wars</h1>
+    )
+  }
+}
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Item name="Jeff"/>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <StarWars/>
       </header>
     </div>
   );
