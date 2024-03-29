@@ -22,21 +22,21 @@ class StarWars extends React.Component{
       height: null,
       homeworld: null,
       films:[],
-      image: null,
+      imageUrl: null,
     }
   }
   getNewCharachter(){
     const randomNumber = Math.round(Math.random()* 88)
-    const url = `https://github.com/akabab/starwars-api/blob/master/api/id/${randomNumber}`
+    const url = `https://github.com/akabab/starwars-api/blob/master/api/id/${randomNumber}.json`
     fetch(url)
     .then(response => response.json())
-    .then(data => {console.log(data)
+    .then(data => {
      this.setState({
       name: data.name,
       height: data.height,
       homeworld: data.homeworld,
       films: data.films,
-      image: data.image,
+      imageUrl: data.image,
       loadedCharacter: true,
     })
 
@@ -51,11 +51,13 @@ class StarWars extends React.Component{
     })
     return(
       <div>
+        <div className='content'>
         {
           
           this.state.loadedCharacter &&<div>
-            <img src={this.state.image} alt="starwars"/>
-        <h1>{this.state.name}</h1>
+            <h1>{this.state.name}</h1>
+            <p><img src={this.state.imageUrl} alt={this.state.name} className='img'/></p>
+        
         <p>{this.state.height} cm</p>
         <p><a href={this.state.homeworld}>Homeworld</a></p>
         <ul>
@@ -68,6 +70,8 @@ class StarWars extends React.Component{
         <button type='button'
          className='btn' 
          onClick={() => this.getNewCharachter()} >Randomise Character</button>
+      </div>
+      <div className='bg-img' style={{backgroundImage:`url(${this.state.imageUrl})`}}></div>
       </div>
     )
   }
