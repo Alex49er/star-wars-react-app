@@ -3,35 +3,68 @@ import './App.css';
 
 import React from 'react';
 
+class FilmItemRow extends React.Component{
+  render(){
+    return(
+      <li>
+        <a href={this.props.url}>{this.props.url}</a>
+      </li>
+    )
+  }
+}
+
 class StarWars extends React.Component{
   constructor(){
     super()
     this.state = {
+      loadedCharacter: false,
       name: null,
       height: null,
       homeworld: null,
       films:[],
+      image: null,
     }
   }
   getNewCharachter(){
-    console.log('get new charachter')
-    this.setState({
-      name: 'Luke',
-      height: 172,
-      homeworld: 'Tattooine',
-      films: ['item1', 'Item2']
+    const randomNumber = Math.round(Math.random()* 88)
+    const url = `https://github.com/akabab/starwars-api/blob/master/api/id/${randomNumber}`
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {console.log(data)
+     this.setState({
+      name: data.name,
+      height: data.height,
+      homeworld: data.homeworld,
+      films: data.films,
+      image: data.image,
+      loadedCharacter: true,
+    })
+
+   
     })
 
   }
   render(){
+
+    const movies = this.state.films.map((url, i) => {
+        return <FilmItemRow key={i} url={url}/>
+    })
     return(
       <div>
+        {
+          
+          this.state.loadedCharacter &&<div>
+            <img src={this.state.image} alt="starwars"/>
         <h1>{this.state.name}</h1>
         <p>{this.state.height} cm</p>
-        <p>Homeworld: {this.state.homeworld}</p>
+        <p><a href={this.state.homeworld}>Homeworld</a></p>
         <ul>
-          <li>{this.state.films}</li>
+         {movies}
         </ul>
+        </div>
+        }
+
+        
         <button type='button'
          className='btn' 
          onClick={() => this.getNewCharachter()} >Randomise Character</button>
