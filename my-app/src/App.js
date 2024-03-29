@@ -4,9 +4,38 @@ import './App.css';
 import React from 'react';
 
 class StarWars extends React.Component{
+  constructor(){
+    super()
+    this.state = {
+      name: null,
+      height: null,
+      homeworld: null,
+      films:[],
+    }
+  }
+  getNewCharachter(){
+    console.log('get new charachter')
+    this.setState({
+      name: 'Luke',
+      height: 172,
+      homeworld: 'Tattooine',
+      films: ['item1', 'Item2']
+    })
+
+  }
   render(){
     return(
-      <h1>This is Star Wars</h1>
+      <div>
+        <h1>{this.state.name}</h1>
+        <p>{this.state.height} cm</p>
+        <p>Homeworld: {this.state.homeworld}</p>
+        <ul>
+          <li>{this.state.films}</li>
+        </ul>
+        <button type='button'
+         className='btn' 
+         onClick={() => this.getNewCharachter()} >Randomise Character</button>
+      </div>
     )
   }
 }
